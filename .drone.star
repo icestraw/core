@@ -1467,6 +1467,9 @@ def acceptance():
 											'image': 'owncloudci/php:%s' % phpVersion,
 											'pull': 'always',
 											'environment': environment,
+											'extraEnvironment': {
+											            'REPLACE_USERNAMES': True,
+											},
 											'commands': params['extraCommandsBeforeTestRun'] + [
 												'touch /drone/saved-settings.sh',
 												'. /drone/saved-settings.sh',
