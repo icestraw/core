@@ -913,6 +913,7 @@ trait WebDav {
 	 * @return void
 	 */
 	public function contentOfFileForUserShouldBe($fileName, $user, $content) {
+		$user = $this->getActualUsername($user);
 		$this->downloadFileAsUserUsingPassword($user, $fileName);
 		$this->downloadedContentShouldBe($content);
 	}

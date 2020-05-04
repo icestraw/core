@@ -2419,6 +2419,7 @@ trait Provisioning {
 	 * @throws \Exception
 	 */
 	public function userHasBeenAddedToGroup($user, $group) {
+		$user = $this->getActualUsername($user);
 		$this->addUserToGroup($user, $group, null, true);
 	}
 
