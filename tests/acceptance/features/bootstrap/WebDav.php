@@ -1397,6 +1397,7 @@ trait WebDav {
 	 *
 	 */
 	public function userShouldSeeTheElements($user, $shouldOrNot, $elements) {
+		$user = $this->getActualUsername($user);
 		$should = ($shouldOrNot !== "not");
 		$this->checkElementList($user, $elements, $should);
 	}
@@ -2021,6 +2022,7 @@ trait WebDav {
 	public function userHasUploadedAFileWithContentTo(
 		$user, $content, $destination
 	) {
+		$user = $this->getActualUsername($user);
 		$fileId = $this->uploadFileWithContent($user, $content, $destination);
 		$this->theHTTPStatusCodeShouldBeOr("201", "204");
 		return $fileId;

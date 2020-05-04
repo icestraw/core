@@ -1785,10 +1785,20 @@ class FeatureContext extends BehatVariablesContext {
 	 * @return string
 	 */
 	public function getActualUsername($functionalUsername) {
-		if ($functionalUsername === "%admin%") {
-			return (string) $this->getAdminUsername();
+		$usernameFromEnv = \getenv('Username');
+		if ($usernameFromEnv == true) {
+			$usernames = \json_decode(\file_get_contents("./usernames.json"), true);
+			if (isset($usernames[$functionalUsername])) {
+				return $usernames[$functionalUsername];
+			} else {
+				return $functionalUsername;
+			}
 		} else {
-			return $functionalUsername;
+			if ($functionalUsername === "%admin%") {
+				return (string)$this->getAdminUsername();
+			} else {
+				return $functionalUsername;
+			}
 		}
 	}
 
