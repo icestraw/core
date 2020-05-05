@@ -374,6 +374,15 @@ class FeatureContext extends BehatVariablesContext {
 	}
 
 	/**
+	 * @return array|null
+	 */
+	public function usersToBeReplaced() {
+		if (\getenv('REPLACE_USERNAMES') !== false) {
+			return \json_decode(\file_get_contents("./tests/acceptance/usernames.json"), true);
+		}
+	}
+
+	/**
 	 * BasicStructure constructor.
 	 *
 	 * @param string $baseUrl
@@ -1785,9 +1794,8 @@ class FeatureContext extends BehatVariablesContext {
 	 * @return string
 	 */
 	public function getActualUsername($functionalUsername) {
-		$usernameFromEnv = \getenv('REPLACE_USERNAMES');
-		if ($usernameFromEnv == true) {
-			$usernames = \json_decode(\file_get_contents("./tests/acceptance/usernames.json"), true);
+		$usernames = $this->usersToBeReplaced();
+		if (isset($usernames)) {
 			if (isset($usernames[$functionalUsername])) {
 				return $usernames[$functionalUsername];
 			}

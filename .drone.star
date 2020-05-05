@@ -1305,7 +1305,9 @@ def acceptance():
 		'useHttps': True,
 		'extraSetup': [],
 		'extraServices': [],
-		'extraEnvironment': {},
+		'extraEnvironment': {
+		           'REPLACE_USERNAMES': True,
+		},
 		'extraCommandsBeforeTestRun': [],
 		'extraApps': {},
 		'useBundledApp': False,
@@ -1467,9 +1469,6 @@ def acceptance():
 											'image': 'owncloudci/php:%s' % phpVersion,
 											'pull': 'always',
 											'environment': environment,
-											'extraEnvironment': {
-											            'REPLACE_USERNAMES': True,
-											},
 											'commands': params['extraCommandsBeforeTestRun'] + [
 												'touch /drone/saved-settings.sh',
 												'. /drone/saved-settings.sh',
