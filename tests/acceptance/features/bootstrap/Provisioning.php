@@ -1196,6 +1196,7 @@ trait Provisioning {
 	 * @throws \Exception
 	 */
 	public function theAdminDeletesUserUsingTheProvisioningApi($user) {
+		$user = $this->getActualUsername($user);
 		$this->deleteTheUserUsingTheProvisioningApi($user);
 		$this->rememberThatUserIsNotExpectedToExist($user);
 	}
