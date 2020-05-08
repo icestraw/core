@@ -676,6 +676,7 @@ class WebDavPropertiesContext implements Context {
 	 * @throws Exception
 	 */
 	public function userHasStoredEtagOfElement($user, $path) {
+		$user = $this->featureContext->getActualUsername($user);
 		$this->storeEtagOfElement(
 			$user,
 			$path
@@ -757,6 +758,7 @@ class WebDavPropertiesContext implements Context {
 	 * @return void
 	 */
 	public function etagOfElementOfUserShouldNotHaveChanged($path, $user) {
+		$user = $this->featureContext->getActualUsername($user);
 		$propertiesTable = new TableNode([['propertyName'],['getetag']]);
 		$this->userGetsPropertiesOfFolder(
 			$user, $path, $propertiesTable
@@ -782,6 +784,7 @@ class WebDavPropertiesContext implements Context {
 	 * @return void
 	 */
 	public function etagOfElementOfUserShouldHaveChanged($path, $user) {
+		$user = $this->featureContext->getActualUsername($user);
 		$propertiesTable = new TableNode([['propertyName'],['getetag']]);
 		$this->userGetsPropertiesOfFolder(
 			$user, $path, $propertiesTable
