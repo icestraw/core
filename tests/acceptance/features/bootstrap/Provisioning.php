@@ -28,6 +28,7 @@ use TestHelpers\SetupHelper;
 use TestHelpers\UserHelper;
 use TestHelpers\HttpRequestHelper;
 use TestHelpers\OcisHelper;
+use TestHelpers\FileHandlingHelper;
 use Zend\Ldap\Exception\LdapException;
 use Zend\Ldap\Ldap;
 
@@ -2156,6 +2157,15 @@ trait Provisioning {
 						$initialize,
 						$settings
 					);
+					$skeletonDir = \getenv("SKELETON_DIR");
+					if ($skeletonDir) {
+						$dataDir = \getenv("OCIS_REVA_DATA_ROOT") . "data/$user/files";
+						if (!\file_exists($dataDir)) {
+							FileHandlingHelper::deleteRecursive($dataDir);
+							\mkdir($dataDir, 0777, true);
+						}
+						FileHandlingHelper::copyRecursive($skeletonDir, $dataDir);
+					}
 				} catch (LdapException $exception) {
 					throw new Exception(
 						__METHOD__ . " cannot create a LDAP user with provided data. Error: {$exception}"
